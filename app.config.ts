@@ -2,33 +2,35 @@
 import {ExpoConfig} from '@expo/config-types';
 
 const config: ExpoConfig = {
-  "scheme": "demo",
-  "name": "react-native-sqlite-expo-demo",
-  "slug": "react-native-sqlite-expo-demo",
-  "version": "1.0.0",
-  "orientation": "portrait",
-  "icon": "./assets/icon.png",
-  "userInterfaceStyle": "light",
-  "splash": {
-    "image": "./assets/splash.png",
-    "resizeMode": "contain",
-    "backgroundColor": "#ffffff"
+  jsEngine: 'hermes',
+  scheme: "demo",
+  name: "react-native-sqlite-expo-demo",
+  slug: "react-native-sqlite-expo-demo",
+  version: "1.0.0",
+  orientation: "portrait",
+  icon: "./assets/icon.png",
+  userInterfaceStyle: "light",
+  splash: {
+    image: "./assets/splash.png",
+    resizeMode: "contain",
+    backgroundColor: "#ffffff"
   },
-  "ios": {
-    "supportsTablet": true
+  ios: {
+    supportsTablet: true
   },
-  "android": {
-    "adaptiveIcon": {
-      "foregroundImage": "./assets/adaptive-icon.png",
-      "backgroundColor": "#ffffff"
+  android: {
+    package: 'com.amarjanica.reactnativesqliteexpodemo',
+    adaptiveIcon: {
+      foregroundImage: "./assets/adaptive-icon.png",
+      backgroundColor: "#ffffff"
     }
   },
-  "web": {
-    "favicon": "./assets/favicon.png"
-  },
-  "plugins": [
+  plugins: [
     "expo-router"
-  ]
+  ],
+  experiments: {
+    typedRoutes: true,
+  },
 }
 
 export default config;
