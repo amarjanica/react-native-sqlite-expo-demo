@@ -1,102 +1,67 @@
-import {FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {useState} from 'react';
+import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { useSQLiteContext } from '@/SQLiteProvider';
+import TaskClient from '@/TaskClient';
+import { Task } from '@/types';
+import logger from '@/logger';
+import type { ListRenderItem } from '@react-native/virtualized-lists';
+import { router } from 'expo-router';
+import globalStyles from '@/globalStyles';
 
-const LandingPage = ()=>{
-  const [tasks, setTasks] = useState([
-    { id: 1, title: 'Buy groceries' },
-    { id: 2, title: 'Clean the house' },
-    { id: 3, title: 'Finish React Native project' },
-  ])
+const LandingPage = () => {
+  const ctx = useSQLiteContext();
+  const client = new TaskClient(ctx);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState('');
 
-  const addTask = () => {
+  const addTask = async () => {
     if (newTask.trim()) {
-      const newTaskItem = {
-        id: Date.now(),
-        title: newTask.trim(),
-      };
-      setTasks([...tasks, newTaskItem]);
+      await client.add(newTask.trim());
       setNewTask('');
     }
   };
+  const prepareTasks = React.useCallback(async () => {
+    if (newTask.length === 0) {
+      logger.log('prepare tasks');
+      setTasks(await client.tasks());
+    }
+  }, [newTask]);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.taskItem}>
-      <Text style={styles.taskText}>{item.title}</Text>
-    </View>
+  React.useEffect(() => {
+    void prepareTasks();
+  }, [prepareTasks]);
+
+  const renderItem: ListRenderItem<Task> = ({ item }) => (
+    <TouchableOpacity
+      onPress={() => router.push(`/detail/${item.id}`)}
+      style={globalStyles.taskItem}>
+      <Text style={globalStyles.taskText}>{item.task}</Text>
+    </TouchableOpacity>
   );
 
   return (
-
-      <FlatList
-        data={tasks}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        style={styles.taskList}
-        ListHeaderComponent={
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Add a new task"
-              value={newTask}
-              onChangeText={setNewTask}
-            />
-            <TouchableOpacity style={styles.addButton} onPress={addTask}>
-              <Text style={styles.addButtonText}>Add</Text>
-            </TouchableOpacity>
-          </View>
-        }
-      />
-  )
-}
-
-const styles = StyleSheet.create({
-  taskList: {
-    flex: 1,
-  },
-  taskItem: {
-    backgroundColor: '#fff',
-    padding: 16,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 5,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 1 },
-    elevation: 3,
-  },
-  taskText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    backgroundColor: '#fff',
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-  },
-  input: {
-    flex: 1,
-    height: 40,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    paddingHorizontal: 8,
-    borderRadius: 5,
-    marginRight: 8,
-  },
-  addButton: {
-    backgroundColor: '#1e90ff',
-    paddingHorizontal: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  addButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-});
+    <FlatList
+      data={tasks}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={renderItem}
+      style={globalStyles.taskList}
+      ListHeaderComponent={
+        <View style={globalStyles.inputContainer}>
+          <TextInput
+            style={globalStyles.input}
+            placeholder="Add a new task"
+            value={newTask}
+            onChangeText={setNewTask}
+          />
+          <TouchableOpacity
+            style={globalStyles.addButton}
+            onPress={addTask}>
+            <Text style={globalStyles.addButtonText}>Add</Text>
+          </TouchableOpacity>
+        </View>
+      }
+    />
+  );
+};
 
 export default LandingPage;

@@ -1,8 +1,8 @@
 /* eslint-env node */
-import {ExpoConfig} from '@expo/config-types';
+import { ExpoConfig } from "@expo/config-types";
 
 const config: ExpoConfig = {
-  jsEngine: 'hermes',
+  jsEngine: "hermes",
   scheme: "demo",
   name: "react-native-sqlite-expo-demo",
   slug: "react-native-sqlite-expo-demo",
@@ -13,24 +13,22 @@ const config: ExpoConfig = {
   splash: {
     image: "./assets/splash.png",
     resizeMode: "contain",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
   },
   ios: {
-    supportsTablet: true
+    supportsTablet: true,
   },
   android: {
-    package: 'com.amarjanica.reactnativesqliteexpodemo',
+    package: "com.amarjanica.reactnativesqliteexpodemo",
     adaptiveIcon: {
       foregroundImage: "./assets/adaptive-icon.png",
-      backgroundColor: "#ffffff"
-    }
+      backgroundColor: "#ffffff",
+    },
   },
-  plugins: [
-    "expo-router"
-  ],
+  plugins: ["expo-router"],
   experiments: {
     typedRoutes: true,
   },
-}
+};
 
 export default config;
