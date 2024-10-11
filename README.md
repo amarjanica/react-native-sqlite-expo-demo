@@ -8,6 +8,8 @@ The app is a simple "CRUD" without the "U" tasks manager.
 
 ![preview](preview.png "App Screenshot")
 
+Read more about it in my blog post on [expo sqlite migrations and integration testing](https://www.amarjanica.com/bridging-the-gap-between-expo-sqlite-and-node-js/)
+or [watch my YT tutorial](https://youtu.be/5OBi4JtlGfY).
 
 # Run it on Android
 I've tested this demo only on android emulator.
