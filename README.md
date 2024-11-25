@@ -1,15 +1,18 @@
 # React Native SQLite Expo Demo
 
 A demo application built with Expo and React Native, showcasing the integration of SQLite 
-using expo-sqlite within an expo-router project. This app demonstrates:
+using expo-sqlite within an expo-router project. This app serves as an example of:
 - Database SQLite Migration
 - Integration Testing: Run integration tests for expo-sqlite in a Node.js environment.
-The app is a simple "CRUD" without the "U" tasks manager.
-
-![preview](preview.png "App Screenshot")
+The app functions as a simple "CRUD" (Create, Read, Delete) tasks manager.
 
 Read more about it in my blog post on [expo sqlite migrations and integration testing](https://www.amarjanica.com/bridging-the-gap-between-expo-sqlite-and-node-js/)
 or [watch my YT tutorial](https://youtu.be/5OBi4JtlGfY).
+
+# App Screenshot
+<p align="center">
+<img src="preview.png" alt="App Screenshot example" height="300"/>
+</p>
 
 # Run it on Android
 I've tested this demo only on android emulator.
