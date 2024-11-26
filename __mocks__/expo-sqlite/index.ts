@@ -75,5 +75,36 @@ const prepareDb = () => {
     closeAsync: async () => {
       db.close();
     },
+    prepareAsync: async (source: string) => {
+      const stmt = db.prepare(source);
+
+      return {
+        executeAsync: async (params: any) => {
+          return new Promise((resolve, reject) => {
+            stmt.run(params, function (err: Error | null) {
+              if (err) {
+                reject(err);
+              } else {
+                resolve({
+                  lastInsertRowId: this.lastID,
+                  changes: this.changes,
+                });
+              }
+            });
+          });
+        },
+        finalizeAsync: async () => {
+          return new Promise((resolve, reject) => {
+            stmt.finalize((err: Error | null) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(undefined);
+              }
+            });
+          });
+        },
+      };
+    },
   };
 };
