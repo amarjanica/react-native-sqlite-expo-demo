@@ -1,16 +1,14 @@
 import { FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
-import { useSQLiteContext } from '@/SQLiteProvider';
-import TaskClient from '@/TaskClient';
 import { Task } from '@/types';
 import logger from '@/logger';
 import type { ListRenderItem } from '@react-native/virtualized-lists';
 import { router } from 'expo-router';
 import globalStyles from '@/globalStyles';
+import { useDataContext } from '@/data/DataContext';
 
 const LandingPage = () => {
-  const ctx = useSQLiteContext();
-  const client = new TaskClient(ctx);
+  const { tasksClient: client } = useDataContext();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState('');
 

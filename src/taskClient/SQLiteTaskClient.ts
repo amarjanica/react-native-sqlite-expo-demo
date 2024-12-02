@@ -1,7 +1,8 @@
-import { SQLiteDatabase } from 'expo-sqlite';
 import { Task } from '@/types';
+import { TaskClient } from '@/taskClient/types';
+import { SQLiteDatabase } from '@/data/sqliteDatabase';
 
-class TaskClient {
+class SQLiteTaskClient implements TaskClient {
   constructor(private db: SQLiteDatabase) {}
 
   async tasks(): Promise<Task[]> {
@@ -19,7 +20,7 @@ class TaskClient {
     }));
   }
 
-  async task(id: string): Promise<Task | null> {
+  async task(id: number): Promise<Task | null> {
     const rawValue = await this.db.getFirstAsync<
       Omit<Task, 'createdAt' | 'updatedAt'> & {
         createdAt: string;
@@ -46,4 +47,4 @@ class TaskClient {
   }
 }
 
-export default TaskClient;
+export default SQLiteTaskClient;

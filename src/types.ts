@@ -1,4 +1,4 @@
-import { SQLiteDatabase } from 'expo-sqlite';
+import { SQLiteDatabase } from '@/data/sqliteDatabase';
 
 export type UserVersion = {
   user_version: number;

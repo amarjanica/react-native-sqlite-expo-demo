@@ -1,54 +1,18 @@
-import { openDatabaseAsync, SQLiteDatabase, SQLiteOpenOptions } from 'expo-sqlite';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import logger from '@/logger';
-
-export interface SQLiteProviderAssetSource {
-  /**
-   * The asset ID returned from the `require()` call.
-   */
-  assetId: number;
-
-  /**
-   * Force overwrite the local database file even if it already exists.
-   * @default false
-   */
-  forceOverwrite?: boolean;
-}
-
-export interface SQLiteProviderProps {
-  /**
-   * The name of the database file to open.
-   */
-  databaseName: string;
-
-  /**
-   * Open options.
-   */
-  options?: SQLiteOpenOptions;
-  assetSource?: SQLiteProviderAssetSource;
-  children: React.ReactNode;
-  onError?: (error: Error) => void;
-  useSuspense?: boolean;
-}
+import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
 
 /**
  * Create a context for the SQLite database
  */
 const SQLiteContext = createContext<SQLiteDatabase | null>(null);
-
-export function useSQLiteContext(): SQLiteDatabase {
-  const context = useContext(SQLiteContext);
-  if (context == null) {
-    throw new Error('useSQLiteContext must be used within a <SQLiteProvider>');
-  }
-  return context;
-}
-
 function SQLiteProvider({
   databaseName,
   children,
   onInit,
-}: Pick<SQLiteProviderProps, 'databaseName' | 'children'> & {
+}: {
+  databaseName: string;
+  children: React.ReactNode;
   onInit: (db: SQLiteDatabase) => Promise<void>;
 }) {
   const [db, setDb] = useState<SQLiteDatabase | null>(null);
@@ -76,7 +40,7 @@ function SQLiteProvider({
       }
     };
 
-    setup();
+    void setup();
 
     return () => {
       isMounting.current = true;
@@ -93,4 +57,4 @@ function SQLiteProvider({
   return isFullyLoaded && <SQLiteContext.Provider value={db}>{children}</SQLiteContext.Provider>;
 }
 
-export default SQLiteProvider
+export default SQLiteProvider;

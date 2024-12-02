@@ -1,4 +1,4 @@
-import { SQLiteDatabase } from 'expo-sqlite';
+import { SQLiteDatabase } from '@/data/sqliteDatabase';
 import { DatabaseMigration, UserVersion } from '@/types';
 import logger from '@/logger';
 
@@ -33,7 +33,7 @@ class DbMigrationRunner {
           logger.log(`Executing ${currentMigration.name}`);
           await currentMigration.up(this.db);
         } catch (error) {
-          throw new Error(`Could not execute migration`, { cause: error });
+          throw new Error(`Could not execute migration ${currentMigration.name}`, { cause: error });
         }
       });
       return userVersion + index + 1;

@@ -1,4 +1,4 @@
-import { SQLiteDatabase } from 'expo-sqlite';
+import { SQLiteDatabase } from '@/data/sqliteDatabase';
 import { DatabaseMigration } from '@/types';
 
 const migration: DatabaseMigration = {
