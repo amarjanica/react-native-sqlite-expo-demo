@@ -1,4 +1,4 @@
-import { openDatabaseAsync, SQLiteDatabase } from 'expo-sqlite';
+import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
 import DbMigrationRunner from '@/DbMigrationRunner';
 import migrations from '../migrations';
 

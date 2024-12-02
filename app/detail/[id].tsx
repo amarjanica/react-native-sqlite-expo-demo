@@ -1,34 +1,38 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import TaskClient from '@/TaskClient';
 import React, { useState } from 'react';
 import { Task } from '@/types';
 import { Unmatched } from 'expo-router';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import logger from '@/logger';
-import { useSQLiteContext } from '@/SQLiteProvider';
+import { useDataContext } from '@/data/DataContext';
 
 const Page = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const ctx = useSQLiteContext();
-  const client = new TaskClient(ctx);
+  const decodedId = parseInt(id);
+  const { tasksClient: client } = useDataContext();
   const [task, setTask] = useState<Task | null>(null);
   const [ready, setReady] = useState(false);
 
   const goBack = () => {
-    router.back();
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.push('/');
+    }
   };
+
   const handleDelete = async () => {
-    await client.delete(parseInt(id));
+    await client.delete(decodedId);
     goBack();
   };
 
   React.useEffect(() => {
     const prepare = async () => {
-      setTask(await client.task(id));
+      setTask(await client.task(decodedId));
     };
     logger.log('prepare detail');
     prepare().finally(() => setReady(true));
-  }, [id]);
+  }, [client, decodedId]);
 
   if (!ready) {
     return false;

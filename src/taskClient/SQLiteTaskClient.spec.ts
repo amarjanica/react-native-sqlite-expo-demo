@@ -1,7 +1,7 @@
-import { openDatabaseAsync, SQLiteDatabase } from 'expo-sqlite';
-import TaskClient from '@/TaskClient';
+import SQLiteTaskClient from '@/taskClient/SQLiteTaskClient';
 import DbMigrationRunner from '@/DbMigrationRunner';
-import migration1 from '../migrations/001_initial';
+import migration1 from '../../migrations/001_initial';
+import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
 
 describe('TaskClient', () => {
   let sqlite: SQLiteDatabase;
@@ -12,7 +12,7 @@ describe('TaskClient', () => {
   });
 
   it('should read all tasks', async () => {
-    const taskClient = new TaskClient(sqlite);
+    const taskClient = new SQLiteTaskClient(sqlite);
 
     const insertStmt = await sqlite.prepareAsync('INSERT INTO task(task) VALUES (?)');
     await insertStmt.executeAsync(['Write']);

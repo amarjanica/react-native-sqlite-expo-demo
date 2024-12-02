@@ -13,6 +13,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~3.2.3",
+    "@react-native-async-storage/async-storage": "^2.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "expo": "^51.0.34",
@@ -21,16 +23,21 @@
     "expo-router": "~3.5.23",
     "expo-sqlite": "~14.0.6",
     "expo-status-bar": "~1.12.1",
+    "idb": "^8.0.0",
     "prettier": "^3.3.3",
     "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-native": "0.74.5",
     "react-native-safe-area-context": "4.10.5",
-    "react-native-screens": "3.31.1"
+    "react-native-screens": "3.31.1",
+    "react-native-web": "~0.19.10",
+    "sql.js": "^1.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/jest": "^29.5.13",
     "@types/react": "~18.2.79",
+    "@types/sql.js": "^1.4.9",
     "eslint": "^8.57.0",
     "eslint-config-expo": "^7.1.2",
     "jest": "^29.7.0",
