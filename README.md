@@ -16,6 +16,8 @@ or [watch my YT tutorial](https://youtu.be/5OBi4JtlGfY).
 I've added web support to the app, so it can run on the web. You can dynamically switch between
 different storage types: SQLite, AsyncStorage and IndexedDB. SQLite is supported on the web via
 [sql.js](https://github.com/sql-js/sql.js/).
+Read more about it in my blog post on [expo sqlite, indexeddb and asyncstorage on the web](https://www.amarjanica.com/expo-sqlite-on-the-web-localstorage-indexeddb-and-sql-js/)
+or [watch my YT tutorial](https://youtu.be/JZYXtOgqEbc).
 
 # App Screenshot
 <p align="center">
