@@ -1,8 +1,7 @@
-# React Native SQLite Expo Demo
+# React Native Expo Demo
 
-A demo application built with Expo and React Native, showcasing the integration of SQLite 
-using expo-sqlite within an expo-router project. 
-Works natively and on the web.
+React Native Expo app showcasing SQLite integration, database migrations, and web support with AsyncStorage and IndexedDB. 
+Includes integration tests and a multi-platform demo (Android & web).
 
 # Chapters
 ## 1. Database migrations and integration testing
