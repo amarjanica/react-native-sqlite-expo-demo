@@ -5,6 +5,10 @@ import React from 'react';
 import AppDataProvider from '@/data/providers/AppDataProvider';
 import { PersistenceType } from '@/data/types';
 
+const enabledPersistenceTypes = Platform.select({
+  web: [PersistenceType.localstorage, PersistenceType.indexedDB, PersistenceType.sqlite],
+  default: [PersistenceType.localstorage, PersistenceType.sqlite],
+});
 const Root = () => {
   const [persistenceType, setPersistenceType] = React.useState<PersistenceType>(
     Platform.select({ web: PersistenceType.indexedDB, default: PersistenceType.sqlite })
@@ -20,15 +24,13 @@ const Root = () => {
             Persistence type: {persistenceType}, OS: {Platform.OS}
           </Text>
           <View style={styles.buttons}>
-            <Button
-              title={PersistenceType.localstorage}
-              onPress={() => setPersistenceType(PersistenceType.localstorage)}></Button>
-            <Button
-              title={PersistenceType.indexedDB}
-              onPress={() => setPersistenceType(PersistenceType.indexedDB)}></Button>
-            <Button
-              title={PersistenceType.sqlite}
-              onPress={() => setPersistenceType(PersistenceType.sqlite)}></Button>
+            {enabledPersistenceTypes.map((persistenceType) => (
+              <Button
+                key={persistenceType}
+                title={persistenceType}
+                onPress={() => setPersistenceType(persistenceType)}
+              />
+            ))}
           </View>
           <Slot />
         </AppDataProvider>
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignSelf: 'center',
-    width: '50%',
+    width: Platform.select({ web: '50%', default: '100%' }),
     padding: 10,
   },
   container: {

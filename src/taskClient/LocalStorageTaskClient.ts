@@ -23,16 +23,17 @@ class LocalStorageTaskClient implements TaskClient {
     return tasks.find((task) => task.id === id) || null;
   }
 
-  async add(task: string): Promise<void> {
-    const allTasks = await this.tasks();
+  async add(taskName: string): Promise<Task> {
+    const now = new Date();
     const newTask: Task = {
-      id: allTasks.length + 1,
-      task,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      id: now.getTime(),
+      task: taskName,
+      createdAt: now,
+      updatedAt: now,
     };
-    const updatedTasks = [...allTasks, newTask];
+    const updatedTasks = [...(await this.tasks()), newTask];
     await AsyncStorage.setItem(LocalStorageTaskClient.key, JSON.stringify(updatedTasks));
+    return newTask;
   }
 
   async delete(id: number): Promise<void> {

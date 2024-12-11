@@ -12,14 +12,16 @@ const toTask = (dbObject: IndexedDBSchema['tasks']['value']): Task => ({
 class IndexedDBClient implements TaskClient {
   constructor(private db: IDBPDatabase<IndexedDBSchema>) {}
 
-  async add(task: string): Promise<void> {
-    const now = new Date().toISOString();
-    await this.db.add('tasks', {
+  async add(taskName: string): Promise<Task> {
+    const now = new Date();
+    const task: Task = {
       id: Date.now(),
-      task,
+      task: taskName,
       createdAt: now,
       updatedAt: now,
-    });
+    };
+    await this.db.add('tasks', { ...task, createdAt: now.toISOString(), updatedAt: now.toISOString() });
+    return task;
   }
 
   async delete(id: number): Promise<void> {
