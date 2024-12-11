@@ -6,28 +6,21 @@ import type { ListRenderItem } from '@react-native/virtualized-lists';
 import { router } from 'expo-router';
 import globalStyles from '@/globalStyles';
 import { useDataContext } from '@/data/DataContext';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { addTaskHandler, selectTasksState } from '@/store/taskSlice';
 
 const LandingPage = () => {
-  const { tasksClient: client } = useDataContext();
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { tasksClient } = useDataContext();
+  const dispatch = useAppDispatch();
   const [newTask, setNewTask] = useState('');
+  const tasks = useAppSelector(selectTasksState);
 
   const addTask = async () => {
     if (newTask.trim()) {
-      await client.add(newTask.trim());
+      dispatch(addTaskHandler({ taskName: newTask, tasksClient }));
       setNewTask('');
     }
   };
-  const prepareTasks = React.useCallback(async () => {
-    if (newTask.length === 0) {
-      logger.log('prepare tasks');
-      setTasks(await client.tasks());
-    }
-  }, [newTask]);
-
-  React.useEffect(() => {
-    void prepareTasks();
-  }, [prepareTasks]);
 
   const renderItem: ListRenderItem<Task> = ({ item }) => (
     <TouchableOpacity

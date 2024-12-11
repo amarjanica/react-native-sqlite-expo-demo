@@ -38,8 +38,10 @@ class SQLiteTaskClient implements TaskClient {
     };
   }
 
-  async add(task: string): Promise<void> {
-    await this.db.runAsync('INSERT INTO task(task) VALUES (?)', [task]);
+  async add(taskName: string): Promise<Task> {
+    const result = await this.db.runAsync('INSERT INTO task(task) VALUES (?)', [taskName]);
+
+    return await this.task(result.lastInsertRowId);
   }
 
   async delete(id: number): Promise<void> {

@@ -8,7 +8,7 @@ Includes integration tests and a multi-platform demo (Android & web).
 I made first version of the app to showcase how you can to database migrations 
 and configure integration tests to be run in a Node.js environment.
 Read more about it in my blog post on [expo sqlite migrations and integration testing](https://www.amarjanica.com/bridging-the-gap-between-expo-sqlite-and-node-js/)
-or [watch my YT tutorial](https://youtu.be/5OBi4JtlGfY).
+or [watch my YT tutorial](https://youtu.be/5OBi4JtlGfY).  
 [Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/98c355d5b1fa065a5ec6585273232908edfe50ec)
 
 ## 2. Web support with SQLite, AsyncStorage and IndexedDB
@@ -16,7 +16,11 @@ I've added web support to the app, so it can run on the web. You can dynamically
 different storage types: SQLite, AsyncStorage and IndexedDB. SQLite is supported on the web via
 [sql.js](https://github.com/sql-js/sql.js/).
 Read more about it in my blog post on [expo sqlite, indexeddb and asyncstorage on the web](https://www.amarjanica.com/expo-sqlite-on-the-web-localstorage-indexeddb-and-sql-js/)
-or [watch my YT tutorial](https://youtu.be/JZYXtOgqEbc).
+or [watch my YT tutorial](https://youtu.be/JZYXtOgqEbc).  
+[Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/5dd4a2d046073127a1d9f82e7ebd54c1c1b98f7b)
+
+## 3. Redux
+I've integrated Redux into the app to manage global state more efficiently.
 
 # App Screenshot
 <p align="center">

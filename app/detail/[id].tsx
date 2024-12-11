@@ -1,17 +1,18 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
-import { Task } from '@/types';
 import { Unmatched } from 'expo-router';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import logger from '@/logger';
 import { useDataContext } from '@/data/DataContext';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { removeTaskHandler, selectTask } from '@/store/taskSlice';
 
 const Page = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const decodedId = parseInt(id);
-  const { tasksClient: client } = useDataContext();
-  const [task, setTask] = useState<Task | null>(null);
+  const { tasksClient } = useDataContext();
   const [ready, setReady] = useState(false);
+  const dispatch = useAppDispatch();
+  const task = useAppSelector(selectTask(decodedId));
 
   const goBack = () => {
     if (router.canGoBack()) {
@@ -22,17 +23,9 @@ const Page = () => {
   };
 
   const handleDelete = async () => {
-    await client.delete(decodedId);
+    dispatch(removeTaskHandler({ tasksClient, id: decodedId }));
     goBack();
   };
-
-  React.useEffect(() => {
-    const prepare = async () => {
-      setTask(await client.task(decodedId));
-    };
-    logger.log('prepare detail');
-    prepare().finally(() => setReady(true));
-  }, [client, decodedId]);
 
   if (!ready) {
     return false;

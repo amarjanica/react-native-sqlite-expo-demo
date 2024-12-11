@@ -3,7 +3,7 @@ import DbMigrationRunner from '@/DbMigrationRunner';
 import migration1 from '../../migrations/001_initial';
 import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
 
-describe('TaskClient', () => {
+describe('SQLiteTaskClient', () => {
   let sqlite: SQLiteDatabase;
 
   beforeEach(async () => {

@@ -1,4 +1,5 @@
 import { TaskClient } from '@/taskClient/types';
+import React from 'react';
 
 export enum PersistenceType {
   sqlite = 'sqlite',
