@@ -21,6 +21,15 @@ or [watch my YT tutorial](https://youtu.be/JZYXtOgqEbc).
 
 ## 3. Redux
 I've integrated Redux into the app to manage global state more efficiently.
+Read more about it in my blog post on [redux integration in expo router app](https://www.amarjanica.com/building-a-redux-powered-app-with-expo-sdk-51/)
+or [watch my YT tutorial](https://youtu.be/Ez6E6M9yYP8).  
+[Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/4f472835c33250c5f90a8f44a160bcc55336f4cb)
+
+## 4. Incrementing Expo App Version with release please
+Example process of incrementing the app version with `release-please` and `semantic-release`.
+Read more about it in my blog post on [incrementing expo app version with release please](https://www.amarjanica.com/automate-expo-app-versioning-with-github-and-release-please/)
+or [watch my YT tutorial](https://youtu.be/wN6cd9cd4qc).
+
 
 # App Screenshot
 <p align="center">

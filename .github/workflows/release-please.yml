@@ -1,0 +1,36 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      app--tag_name: ${{ steps.release.outputs.tag_name}}
+      app--release_created: ${{ steps.release.outputs.release_created}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token:  ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  release-play-internal-testing:
+    needs: release-please
+    runs-on: ubuntu-latest
+    if: ${{needs.release-please.outputs.app--release_created}}
+#    steps:
+  release-testflight:
+    needs: release-please
+    runs-on: macos-latest
+    if: ${{needs.release-please.outputs.app--release_created}}
+#    steps:

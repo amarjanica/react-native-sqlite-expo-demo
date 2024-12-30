@@ -1,12 +1,18 @@
 /* eslint-env node */
 import { ExpoConfig } from '@expo/config-types';
+import { coerce } from 'semver';
+import pkg from './package.json';
+
+const currentVersion = coerce(pkg.version);
+const androidVersion = currentVersion.major * 10000 + currentVersion.minor * 100 + currentVersion.patch;
+const expoVersion = pkg.version;
 
 const config: ExpoConfig = {
   jsEngine: 'hermes',
   scheme: 'demo',
   name: 'react-native-sqlite-expo-demo',
   slug: 'react-native-sqlite-expo-demo',
-  version: '1.0.0',
+  version: expoVersion,
   orientation: 'portrait',
   icon: './assets/icon.png',
   userInterfaceStyle: 'light',
@@ -20,6 +26,7 @@ const config: ExpoConfig = {
   },
   ios: {
     supportsTablet: true,
+    buildNumber: expoVersion,
   },
   android: {
     package: 'com.amarjanica.reactnativesqliteexpodemo',
@@ -27,6 +34,7 @@ const config: ExpoConfig = {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
+    versionCode: androidVersion,
   },
   plugins: ['expo-router'],
   experiments: {
