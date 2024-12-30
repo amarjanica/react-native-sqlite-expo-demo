@@ -5,10 +5,6 @@
   "separate-pull-requests": true,
   "release-search-depth": 20,
   "commit-search-depth": 20,
-  "packages": {
-    ".": {
-      "release-type": "node",
-      "changelog-path": "CHANGELOG.md"
-    }
-  }
+  "release-type": "node",
+  "changelog-path": "CHANGELOG.md"
 }
