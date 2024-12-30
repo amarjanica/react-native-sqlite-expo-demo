@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import { Unmatched } from 'expo-router';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { useDataContext } from '@/data/DataContext';
@@ -10,7 +10,6 @@ const Page = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const decodedId = parseInt(id);
   const { tasksClient } = useDataContext();
-  const [ready, setReady] = useState(false);
   const dispatch = useAppDispatch();
   const task = useAppSelector(selectTask(decodedId));
 
@@ -27,9 +26,6 @@ const Page = () => {
     goBack();
   };
 
-  if (!ready) {
-    return false;
-  }
   if (!task) {
     return <Unmatched />;
   }
