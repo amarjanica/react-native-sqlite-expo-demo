@@ -23,14 +23,15 @@ jobs:
           token:  ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
-
   release-play-internal-testing:
     needs: release-please
     runs-on: ubuntu-latest
     if: ${{needs.release-please.outputs.app--release_created}}
-#    steps:
+    steps:
+      - uses: actions/checkout@v4
   release-testflight:
     needs: release-please
     runs-on: macos-latest
     if: ${{needs.release-please.outputs.app--release_created}}
-#    steps:
+    steps:
+      - uses: actions/checkout@v4
