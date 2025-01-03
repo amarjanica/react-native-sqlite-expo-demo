@@ -23,15 +23,29 @@ jobs:
           token:  ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
-  release-play-internal-testing:
+  release2play-internal-test-track:
     needs: release-please
     runs-on: ubuntu-latest
     if: ${{needs.release-please.outputs.app--release_created}}
     steps:
       - uses: actions/checkout@v4
-  release-testflight:
-    needs: release-please
-    runs-on: macos-latest
-    if: ${{needs.release-please.outputs.app--release_created}}
-    steps:
-      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-environment
+        with:
+          node-version: '20'
+          cache-path: 'node_modules'
+          cache-key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+      - run: npm i
+      - uses: ./.github/actions/setup-expo
+        with:
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+      - name: Build aab
+        run: npm run build:android
+      - name: Upload to Play Store Internal Testing
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_CONSOLE_SERVICE_ACCOUNT_JSON }}
+          packageName: package.name
+          releaseFiles: app-release.aab
+          track: internal
+          status: draft
+          inAppUpdatePriority: 2

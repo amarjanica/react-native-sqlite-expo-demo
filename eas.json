@@ -1,0 +1,25 @@
+{
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+
+      }
+    },
+    "production": {
+      "env": {
+      }
+    }
+  },
+  "cli": {
+    "version": ">= 9.0.0",
+    "appVersionSource": "local"
+  }
+}

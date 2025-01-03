@@ -10,7 +10,10 @@
     "web": "expo start --web",
     "lint": "eslint .",
     "android": "expo run:android",
-    "test": "jest"
+    "test": "jest",
+    "build:android-dev": "eas build -p android --local --profile development --output app-dev.apk",
+    "build:android-preview": "eas build -p android --local --profile preview --output app-preview.apk",
+    "build:android": "NODE_ENV=production expo prebuild --clean && eas build -p android --local --profile production --output app-release.aab"
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.3",
