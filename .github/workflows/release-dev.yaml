@@ -20,6 +20,8 @@ jobs:
         run: npm i
       - name: Build development
         run: npm run build:android-dev
+        env:
+          EXPO_PROJECT_ID: ${{ secrets.EXPO_PROJECT_ID }}
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
