@@ -1,0 +1,38 @@
+name: Release DEV
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-environment
+        with:
+          node-version: '20'
+          cache-path: 'node_modules'
+          cache-key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+      - uses: ./.github/actions/setup-expo
+        with:
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: npm i
+      - name: Build development
+        run: npm run build:android-dev
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Snapshot Release v${{ github.run_number }} - ${{ github.ref_name }}
+          body: |
+            WIP development pre-release
+          draft: false
+          prerelease: true
+      - name: Upload apk to GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload v${{ github.run_number }} ./app/app-dev.apk
+
