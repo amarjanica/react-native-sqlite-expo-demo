@@ -23,6 +23,9 @@ const config: ExpoConfig = {
   },
   extra: {
     dbName: 'test',
+    eas: {
+      projectId: process.env.EXPO_PROJECT_ID,
+    },
   },
   ios: {
     supportsTablet: true,
