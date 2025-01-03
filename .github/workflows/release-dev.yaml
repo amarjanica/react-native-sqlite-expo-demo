@@ -36,5 +36,5 @@ jobs:
       - name: Upload apk to GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload v${{ github.run_number }} ./app/app-dev.apk
+        run: gh release upload v${{ github.run_number }} ./app-dev.apk
 
