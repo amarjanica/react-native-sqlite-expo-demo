@@ -28,7 +28,15 @@ or [watch my YT tutorial](https://youtu.be/Ez6E6M9yYP8).
 ## 4. Incrementing Expo App Version with release please
 Example process of incrementing the app version with `release-please` and `semantic-release`.
 Read more about it in my blog post on [incrementing expo app version with release please](https://www.amarjanica.com/automate-expo-app-versioning-with-github-and-release-please/)
-or [watch my YT tutorial](https://youtu.be/wN6cd9cd4qc).
+or [watch my YT tutorial](https://youtu.be/wN6cd9cd4qc).  
+[Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/e9f07ad2e04524e76583b183f4b2a1a2569508ba)
+
+## 5. Publish to Play from GitHub Actions
+Updated Release Please with publish 2 Play Internal Test Track after release please bumps expo version.
+Added separate manual dispatch workflow that builds development apk and publishes it to GitHub releases.
+Read more about it in my blog post on [publishing expo to play](https://www.amarjanica.com/publish-expo-app-to-google-play-with-github-actions/)
+or [watch my YT tutorial](https://youtu.be/sGjJxSBZMTA).  
+[Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/5592b948acf113613cc7adb5fa4c3f607e1577e0)
 
 
 # App Screenshot
