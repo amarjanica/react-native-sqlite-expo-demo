@@ -30,6 +30,7 @@ const config: ExpoConfig = {
   ios: {
     supportsTablet: true,
     buildNumber: expoVersion,
+    bundleIdentifier: 'com.amarjanica.reactnativesqliteexpodemo',
   },
   android: {
     package: 'com.amarjanica.reactnativesqliteexpodemo',

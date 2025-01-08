@@ -1,0 +1,31 @@
+name: Release to Apple
+
+on:
+  workflow_dispatch:
+
+release-app-ipa:
+  runs-on: macos-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - run: npm ci
+      shell: bash
+    - name: 🏗 Setup EAS
+      uses: expo/expo-github-action@v8
+      with:
+        expo-version: latest
+        eas-version: latest
+        expo-cache: true
+        # Create personal access token https://expo.dev/settings/access-tokens
+        token: ${{ secrets.EXPO_TOKEN }}
+    - name: Build iOS app
+      run: eas build --local -p ios --profile production --non-interactive --output app.ipa
+    - name: 'Upload app to TestFlight'
+      uses: apple-actions/upload-testflight-build@v1
+      with:
+        app-path: './app.ipa'
+        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+        api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+        api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
