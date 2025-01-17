@@ -32,12 +32,16 @@ or [watch my YT tutorial](https://youtu.be/wN6cd9cd4qc).
 [Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/e9f07ad2e04524e76583b183f4b2a1a2569508ba)
 
 ## 5. Publish to Play from GitHub Actions
-Updated Release Please with publish 2 Play Internal Test Track after release please bumps expo version.
-Added separate manual dispatch workflow that builds development apk and publishes it to GitHub releases.
+Updated Release Please with publish to Play Internal Test Track, after release please bumps expo version.
+Added a [separate manual dispatch workflow](.github/workflows/release-dev.yaml) that builds development apk and publishes it to GitHub releases.
 Read more about it in my blog post on [publishing expo to play](https://www.amarjanica.com/publish-expo-app-to-google-play-with-github-actions/)
 or [watch my YT tutorial](https://youtu.be/sGjJxSBZMTA).  
 [Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/5592b948acf113613cc7adb5fa4c3f607e1577e0)
 
+## 6. Publish to TestFlight from GitHub Actions
+Updated Release Please with [publish to testflight](.github/workflows/release-please.yml#L52). Added a [separate manual dispatch workflow](.github/workflows/release-ipa.yml) that releases IPA file to TestFlight.
+Read more about it in my blog post on [publishing to testflight from github](https://www.amarjanica.com/submit-expo-ios-app-to-apple-appstore/)
+or [watch my YT tutorial](https://youtu.be/wUvtS8CWhMs).  
 
 # App Screenshot
 <p align="center">
