@@ -1,11 +1,7 @@
-import { TaskClient } from '@/taskClient/types';
 import React from 'react';
+import { DataContextValue } from '@/data/types';
 
-type Value = {
-  tasksClient: TaskClient;
-};
-
-export const DataContext = React.createContext<Value | null>(null);
+export const DataContext = React.createContext<DataContextValue | null>(null);
 
 export const useDataContext = () => {
   const context = React.useContext(DataContext);

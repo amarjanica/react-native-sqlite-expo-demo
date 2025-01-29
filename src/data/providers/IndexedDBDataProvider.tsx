@@ -1,8 +1,9 @@
 import { DataProviderProps, IndexedDBSchema } from '@/data/types';
 import React from 'react';
-import IndexedDBClient from '@/taskClient/IndexedDBClient';
+import IndexedDBTaskClient from '@/clients/IndexedDBTaskClient';
 import { IDBPDatabase, openDB } from 'idb';
 import logger from '@/logger';
+import IndexedDBOpsClient from '@/clients/IndexedDBOpsClient';
 
 const IndexedDBDataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [db, setDb] = React.useState<IDBPDatabase<IndexedDBSchema> | null>(null);
@@ -35,7 +36,7 @@ const IndexedDBDataProvider: React.FC<DataProviderProps> = ({ children }) => {
     return null;
   }
 
-  return <>{children({ taskClient: new IndexedDBClient(db) })}</>;
+  return <>{children({ taskClient: new IndexedDBTaskClient(db), opsClient: new IndexedDBOpsClient(db) })}</>;
 };
 
 export default IndexedDBDataProvider;

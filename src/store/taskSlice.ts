@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TaskClient } from '@/taskClient/types';
+import { TaskClient } from '@/clients/types';
 import { Task } from '@/types';
 import { RootState } from '@/store/index';
+import { resetState } from '@/store/globalReset';
 
 const taskSlice = createSlice({
   initialState: [],
@@ -16,6 +17,9 @@ const taskSlice = createSlice({
     removeTask: (state, action: PayloadAction<{ id: Task['id'] }>) => {
       return state.filter((task) => task.id !== action.payload.id);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetState, () => []);
   },
 });
 
@@ -32,16 +36,16 @@ const initializeTasks = createAsyncThunk('tasks/initialize', async (taskClient: 
 
 const addTaskHandler = createAsyncThunk(
   'tasks/add',
-  async ({ tasksClient, taskName }: { tasksClient: TaskClient; taskName: string }, thunkApi) => {
-    const task = await tasksClient.add(taskName);
+  async ({ taskClient, taskName }: { taskClient: TaskClient; taskName: string }, thunkApi) => {
+    const task = await taskClient.add(taskName);
     thunkApi.dispatch(addTask({ task }));
   }
 );
 
 const removeTaskHandler = createAsyncThunk(
   'tasks/remove',
-  async ({ tasksClient, id }: { tasksClient: TaskClient; id: Task['id'] }, thunkApi) => {
-    await tasksClient.delete(id);
+  async ({ taskClient, id }: { taskClient: TaskClient; id: Task['id'] }, thunkApi) => {
+    await taskClient.delete(id);
     thunkApi.dispatch(removeTask({ id }));
   }
 );

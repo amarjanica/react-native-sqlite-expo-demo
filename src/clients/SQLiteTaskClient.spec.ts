@@ -1,13 +1,14 @@
-import SQLiteTaskClient from '@/taskClient/SQLiteTaskClient';
+import SQLiteTaskClient from '@/clients/SQLiteTaskClient';
 import DbMigrationRunner from '@/DbMigrationRunner';
 import migration1 from '../../migrations/001_initial';
 import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
+import { dbName } from '@/config';
 
 describe('SQLiteTaskClient', () => {
   let sqlite: SQLiteDatabase;
 
   beforeEach(async () => {
-    sqlite = await openDatabaseAsync('test.db');
+    sqlite = await openDatabaseAsync(dbName);
     await new DbMigrationRunner(sqlite).apply([migration1]);
   });
 
