@@ -1,4 +1,4 @@
-import { TaskClient } from '@/taskClient/types';
+import { TaskClient } from '@/clients/types';
 import { Task } from '@/types';
 import { IDBPDatabase } from 'idb';
 import { IndexedDBSchema } from '@/data/types';
@@ -9,7 +9,7 @@ const toTask = (dbObject: IndexedDBSchema['tasks']['value']): Task => ({
   updatedAt: new Date(dbObject.updatedAt),
 });
 
-class IndexedDBClient implements TaskClient {
+class IndexedDBTaskClient implements TaskClient {
   constructor(private db: IDBPDatabase<IndexedDBSchema>) {}
 
   async add(taskName: string): Promise<Task> {
@@ -42,4 +42,4 @@ class IndexedDBClient implements TaskClient {
   }
 }
 
-export default IndexedDBClient;
+export default IndexedDBTaskClient;

@@ -60,7 +60,7 @@ npm run dev:android
 
 # Web App Screenshot
 <p align="center">
-<img src="preview-web.png" alt="Web app Screenshot example" height="300"/>
+  <img src="preview-web.png" alt="Web app Screenshot example" height="300"/>
 </p>
 
 # Run it on the web

@@ -1,4 +1,4 @@
-import { TaskClient } from '@/taskClient/types';
+import { TaskClient } from '@/clients/types';
 import { Task } from '@/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

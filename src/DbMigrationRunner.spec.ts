@@ -1,12 +1,13 @@
 import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
 import DbMigrationRunner from '@/DbMigrationRunner';
 import migrations from '../migrations';
+import { dbName } from '@/config';
 
 describe('DbMigrationRunner', () => {
   let sqlite: SQLiteDatabase;
 
   beforeEach(async () => {
-    sqlite = await openDatabaseAsync('test.db');
+    sqlite = await openDatabaseAsync(dbName);
   });
 
   it('should migrate', async () => {

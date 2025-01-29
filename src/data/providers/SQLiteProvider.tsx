@@ -2,9 +2,6 @@ import React, { createContext, useEffect, useState } from 'react';
 import logger from '@/logger';
 import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
 
-/**
- * Create a context for the SQLite database
- */
 const SQLiteContext = createContext<SQLiteDatabase | null>(null);
 function SQLiteProvider({
   databaseName,

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  taskList: {
+  root: {
     flex: 1,
   },
   taskItem: {
@@ -29,23 +29,38 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 40,
     borderColor: '#ddd',
     borderWidth: 1,
     paddingHorizontal: 8,
     borderRadius: 5,
-    marginRight: 8,
+    height: '100%',
   },
-  addButton: {
+  divider: {
+    borderBottomColor: '#1e90ff',
+    borderBottomWidth: 1,
+    width: '100%',
+    opacity: 0.1,
+    padding: 5,
+  },
+  button: {
     backgroundColor: '#1e90ff',
     paddingHorizontal: 16,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
+    height: '100%',
   },
-  addButtonText: {
+  buttonText: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  icon: {
+    color: '#fff',
+    fontSize: 20,
+  },
+  headerText: {
+    fontSize: 20,
+    paddingHorizontal: 8,
   },
 });
 

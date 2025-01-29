@@ -3,9 +3,11 @@ import migrations from '../../../migrations';
 import logger from '@/logger';
 import React from 'react';
 import { DataProviderProps } from '@/data/types';
-import SQLiteTaskClient from '@/taskClient/SQLiteTaskClient';
-import SQLiteProvider from '@/SQLiteProvider';
+import SQLiteTaskClient from '@/clients/SQLiteTaskClient';
+import SQLiteProvider from '@/data/providers/SQLiteProvider';
 import { SQLiteDatabase } from '@/data/sqliteDatabase';
+import { dbName } from '@/config';
+import SQLiteOpsClient from '@/clients/SQLiteOpsClient';
 
 const SQLiteDataProvider: React.FC<DataProviderProps> = ({ children }) => {
   const [db, setDb] = React.useState<SQLiteDatabase | null>(null);
@@ -22,9 +24,9 @@ const SQLiteDataProvider: React.FC<DataProviderProps> = ({ children }) => {
 
   return (
     <SQLiteProvider
-      databaseName={`test.db`}
+      databaseName={dbName}
       onInit={migrateDbIfNeeded}>
-      {!!db && children({ taskClient: new SQLiteTaskClient(db) })}
+      {!!db && children({ taskClient: new SQLiteTaskClient(db), opsClient: new SQLiteOpsClient(db) })}
     </SQLiteProvider>
   );
 };

@@ -1,5 +1,5 @@
 import { Task } from '@/types';
-import { TaskClient } from '@/taskClient/types';
+import { TaskClient } from '@/clients/types';
 import { SQLiteDatabase } from '@/data/sqliteDatabase';
 
 class SQLiteTaskClient implements TaskClient {

@@ -1,13 +1,13 @@
-import { DataProviderProps, PersistenceType } from '@/data/types';
+import { DataContextValue, DataProviderProps, PersistenceType } from '@/data/types';
 import React from 'react';
 import LocalStorageDataProvider from '@/data/providers/LocalStorageDataProvider';
 import SQLiteDataProvider from '@/data/providers/SQLiteDataProvider';
 import { DataContext } from '@/data/DataContext';
 import IndexedDBDataProvider from '@/data/providers/IndexedDBDataProvider';
-import { Provider as ReduxProvider } from 'react-redux';
-import store from '@/store';
-import { TaskClient } from '@/taskClient/types';
+
+import { useAppDispatch, useAppSelector } from '@/store';
 import { initializeTasks } from '@/store/taskSlice';
+import { selectedPersistence } from '@/store/settingsSlice';
 
 const PersistenceProviderWrapper: React.FC<DataProviderProps & { persistenceType: PersistenceType }> = ({
   persistenceType,
@@ -22,28 +22,32 @@ const PersistenceProviderWrapper: React.FC<DataProviderProps & { persistenceType
   return <Component {...props} />;
 };
 
-const DataContextProvider: React.FC<React.PropsWithChildren<{ tasksClient: TaskClient }>> = ({
-  tasksClient,
+const DataContextProvider: React.FC<React.PropsWithChildren<DataContextValue>> = ({
+  taskClient,
+  opsClient,
   children,
 }) => {
+  const dispatch = useAppDispatch();
   React.useEffect(() => {
-    store.dispatch(initializeTasks(tasksClient));
-  }, [tasksClient]);
+    dispatch(initializeTasks(taskClient));
+  }, [taskClient]);
 
-  return (
-    <DataContext.Provider value={{ tasksClient }}>
-      <ReduxProvider store={store}>{children}</ReduxProvider>
-    </DataContext.Provider>
-  );
+  return <DataContext.Provider value={{ taskClient, opsClient }}>{children}</DataContext.Provider>;
 };
 
 const AppDataProvider: React.FC<{
   children: React.ReactNode;
-  persistenceType: PersistenceType;
-}> = ({ children, persistenceType }) => {
+}> = ({ children }) => {
+  const persistenceType = useAppSelector(selectedPersistence);
   return (
     <PersistenceProviderWrapper persistenceType={persistenceType}>
-      {(props) => <DataContextProvider tasksClient={props.taskClient}>{children}</DataContextProvider>}
+      {(props) => (
+        <DataContextProvider
+          opsClient={props.opsClient}
+          taskClient={props.taskClient}>
+          {children}
+        </DataContextProvider>
+      )}
     </PersistenceProviderWrapper>
   );
 };

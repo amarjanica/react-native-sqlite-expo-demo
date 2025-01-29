@@ -1,11 +1,14 @@
 import { combineReducers, configureStore, Middleware, PayloadAction } from '@reduxjs/toolkit';
 import tasksSlice from './taskSlice';
+import settingsSlice from './settingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import logger from '@/logger';
 import devToolsEnhancer from 'redux-devtools-expo-dev-plugin';
+import { Platform } from 'react-native';
 
 const rootReducer = combineReducers({
   [tasksSlice.name]: tasksSlice.reducer,
+  [settingsSlice.name]: settingsSlice.reducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -21,7 +24,7 @@ if (__DEV__) {
 
 const enhancers: any[] = [];
 
-if (__DEV__) {
+if (__DEV__ && Platform.OS !== 'web') {
   enhancers.push(devToolsEnhancer());
 }
 

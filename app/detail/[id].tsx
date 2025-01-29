@@ -5,25 +5,18 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import { useDataContext } from '@/data/DataContext';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { removeTaskHandler, selectTask } from '@/store/taskSlice';
+import Header from '@/Header';
 
-const Page = () => {
+const Page: React.FC = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const decodedId = parseInt(id);
   const { tasksClient } = useDataContext();
   const dispatch = useAppDispatch();
   const task = useAppSelector(selectTask(decodedId));
 
-  const goBack = () => {
-    if (router.canGoBack()) {
-      router.back();
-    } else {
-      router.push('/');
-    }
-  };
-
   const handleDelete = async () => {
     dispatch(removeTaskHandler({ tasksClient, id: decodedId }));
-    goBack();
+    router.push('/');
   };
 
   if (!task) {
@@ -31,12 +24,9 @@ const Page = () => {
   }
   return (
     <View style={styles.root}>
-      <View style={styles.taskItem}>
-        <Button
-          title="Go back"
-          onPress={goBack}
-        />
-      </View>
+      <Header showBack={true}>
+        <Text style={styles.taskText}>Task: {task.task}</Text>
+      </Header>
       <View style={styles.taskItem}>
         <Text style={styles.taskText}>Task: {task.task}</Text>
       </View>

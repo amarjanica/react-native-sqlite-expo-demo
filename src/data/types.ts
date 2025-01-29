@@ -1,4 +1,4 @@
-import { TaskClient } from '@/taskClient/types';
+import { OpsClient, TaskClient } from '@/clients/types';
 import React from 'react';
 
 export enum PersistenceType {
@@ -7,8 +7,13 @@ export enum PersistenceType {
   localstorage = 'localstorage',
 }
 
+export type DataContextValue = {
+  taskClient: TaskClient;
+  opsClient: OpsClient;
+};
+
 export type DataProviderProps = {
-  children: (props: { taskClient: TaskClient }) => React.ReactNode;
+  children: (props: DataContextValue) => React.ReactNode;
 };
 
 export type IndexedDBSchema = {
