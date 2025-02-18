@@ -1,5 +1,6 @@
 import { BindParams } from 'sql.js';
 import initSqlJs from 'sql.js';
+import { loadFromIndexedDB, saveToIndexedDB } from '@/data/indexedDatabase';
 export type SQLiteDatabase = any;
 const sqlPromise = initSqlJs({
   locateFile: (file) => `https://sql.js.org/dist/${file}`,
@@ -7,29 +8,35 @@ const sqlPromise = initSqlJs({
 
 export async function openDatabaseAsync(databaseName: string, options?: any): Promise<SQLiteDatabase> {
   const SQL = await sqlPromise;
+  const savedData = await loadFromIndexedDB(databaseName);
+  const db = savedData ? new SQL.Database(savedData) : new SQL.Database();
 
-  const db = new SQL.Database();
   return {
     withTransactionAsync: async (task: () => Promise<void>) => {
       try {
-        db.exec('BEGIN');
+        // TODO: fails with no transaction is active
+        // db.exec('BEGIN TRANSACTION');
         await task();
-        db.exec('COMMIT');
+        // db.exec('COMMIT');
+        void saveToIndexedDB(db, databaseName);
       } catch (e) {
         console.error('rollback', e);
-        db.exec('ROLLBACK');
+        // db.exec('ROLLBACK');
         throw e;
       }
     },
     execAsync: async (source: string): Promise<void> => {
       db.exec(source);
+      void saveToIndexedDB(db, databaseName);
     },
     runAsync: async (source: string, params: BindParams): Promise<any> => {
       db.run(source, params);
-      return {
+      const result = {
         lastInsertRowId: db.exec('SELECT last_insert_rowid()')[0].values[0][0] as number,
         changes: db.getRowsModified(),
       };
+      void saveToIndexedDB(db, databaseName);
+      return result;
     },
     getAllAsync: async <T>(source: string, params: BindParams): Promise<T[]> => {
       const stmt = db.prepare(source);

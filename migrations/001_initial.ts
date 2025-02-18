@@ -6,7 +6,7 @@ const migration: DatabaseMigration = {
   async up(db: SQLiteDatabase): Promise<void> {
     await db.execAsync(`
 CREATE TABLE task (
-    id         INTEGER PRIMARY KEY,
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
     task       TEXT NOT NULL,
     created_at TEXT DEFAULT CURRENT_TIMESTAMP,
     updated_at TEXT DEFAULT CURRENT_TIMESTAMP

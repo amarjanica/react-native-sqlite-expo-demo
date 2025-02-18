@@ -1,5 +1,5 @@
 import SQLiteTaskClient from '@/clients/SQLiteTaskClient';
-import DbMigrationRunner from '@/DbMigrationRunner';
+import DbMigrationRunner from '@/data/DbMigrationRunner';
 import migration1 from '../../migrations/001_initial';
 import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
 import { dbName } from '@/config';

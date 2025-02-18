@@ -1,5 +1,4 @@
 import { SQLiteDatabase } from '@/data/sqliteDatabase';
-import { PersistenceType } from '@/data/types';
 
 export type UserVersion = {
   user_version: number;
@@ -18,5 +17,5 @@ export type Task = {
 };
 
 export type Settings = {
-  persistenceType: PersistenceType;
+  [key: string]: any;
 };

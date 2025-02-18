@@ -42,6 +42,13 @@ or [watch my YT tutorial](https://youtu.be/sGjJxSBZMTA).
 Updated Release Please with [publish to testflight](.github/workflows/release-please.yml#L52). Added a [separate manual dispatch workflow](.github/workflows/release-ipa.yml) that releases IPA file to TestFlight.
 Read more about it in my blog post on [publishing to testflight from github](https://www.amarjanica.com/submit-expo-ios-app-to-apple-appstore/)
 or [watch my YT tutorial](https://youtu.be/wUvtS8CWhMs).  
+[Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/commit/7ac72eb7904448aac7b6e56982e833dee38e1f89)
+
+## 7. Making SQLite work on the web with sql.js and indexeddb
+In my previous tutorials I already made SQLite work on the web with sql.js.
+I also showed you how to use AsyncStorage and IndexedDB on the web.
+But I didn't show you how to make SQLite persistable between sessions with the help of IndexedDB.
+
 
 # App Screenshot
 <p align="center">
