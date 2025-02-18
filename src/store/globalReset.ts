@@ -6,7 +6,6 @@ export const resetState = createAction('app/reset');
 export const clearData = createAsyncThunk(
   'app/clearData',
   async ({ opsClient }: { opsClient: OpsClient }, thunkApi) => {
-    console.log('clean');
     await opsClient.clear();
     thunkApi.dispatch(resetState());
   }

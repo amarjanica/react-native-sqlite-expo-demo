@@ -1,6 +1,6 @@
 import { SQLiteDatabase, openDatabaseAsync } from '@/data/sqliteDatabase';
-import DbMigrationRunner from '@/DbMigrationRunner';
-import migrations from '../migrations';
+import DbMigrationRunner from '@/data/DbMigrationRunner';
+import migrations from '../../migrations';
 import { dbName } from '@/config';
 
 describe('DbMigrationRunner', () => {

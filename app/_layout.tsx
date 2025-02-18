@@ -2,7 +2,7 @@ import { Slot } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import React from 'react';
-import AppDataProvider from '@/data/providers/AppDataProvider';
+import AppDataProvider from '@/data/AppDataProvider';
 import store from '@/store';
 import { Provider as ReduxProvider } from 'react-redux';
 

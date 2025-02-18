@@ -10,12 +10,12 @@ import Header from '@/Header';
 const Page: React.FC = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const decodedId = parseInt(id);
-  const { tasksClient } = useDataContext();
+  const { taskClient } = useDataContext();
   const dispatch = useAppDispatch();
   const task = useAppSelector(selectTask(decodedId));
 
   const handleDelete = async () => {
-    dispatch(removeTaskHandler({ tasksClient, id: decodedId }));
+    dispatch(removeTaskHandler({ taskClient, id: decodedId }));
     router.push('/');
   };
 
