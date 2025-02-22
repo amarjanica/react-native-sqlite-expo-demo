@@ -1,5 +1,5 @@
 import { OpsClient } from '@/clients/types';
-import { SQLiteDatabase } from '@/data/sqliteDatabase';
+import { backupDatabase, restoreDatabase, SQLiteDatabase } from '@/data/sqliteDatabase';
 
 class SQLiteOpsClient implements OpsClient {
   constructor(private db: SQLiteDatabase) {}
@@ -8,11 +8,11 @@ class SQLiteOpsClient implements OpsClient {
     await this.db.execAsync(`
 DELETE FROM task;`);
   }
-  async backup(): Promise<void> {
-    throw new Error('Method not implemented.');
+  async backup(backupName: string): Promise<void> {
+    await backupDatabase(this.db, backupName);
   }
   async restore(): Promise<void> {
-    throw new Error('Method not implemented.');
+    await restoreDatabase(this.db);
   }
 }
 

@@ -1,6 +1,10 @@
 import { BindParams } from 'sql.js';
 import initSqlJs from 'sql.js';
-import { loadFromIndexedDB, saveToIndexedDB } from '@/data/indexedDatabase';
+import { loadFromIndexedDB, saveToIndexedDB, saveToIndexedDBBA } from '@/data/indexedDatabase';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+import logger from '@/logger';
+import * as DocumentPicker from 'expo-document-picker';
 export type SQLiteDatabase = any;
 const sqlPromise = initSqlJs({
   locateFile: (file) => `https://sql.js.org/dist/${file}`,
@@ -60,5 +64,72 @@ export async function openDatabaseAsync(databaseName: string, options?: any): Pr
     closeAsync: async () => {
       db.close();
     },
+    export: () => {
+      return db.export();
+    },
+    import: async (data: Uint8Array) => {
+      await saveToIndexedDBBA(data, databaseName);
+    },
   };
 }
+
+export const backupDatabase = async (db: SQLiteDatabase, backupName: string) => {
+  try {
+    const fileContent = await db.export();
+    const blob = new Blob([fileContent], { type: 'application/x-sqlite3' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = backupName;
+    link.click();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    logger.error('Failed to backup', err);
+  }
+};
+
+export const restoreDatabase = async (db: SQLiteDatabase) => {
+  try {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '*/*';
+
+    return new Promise<void>((resolve, reject) => {
+      input.onchange = async (event: any) => {
+        const file = event.target.files[0];
+        if (!file) {
+          resolve(undefined);
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          try {
+            const fileContent = e.target?.result as ArrayBuffer | null;
+            if (!fileContent) {
+              reject('Corrupted file!');
+              return;
+            }
+
+            const uint8Array = new Uint8Array(fileContent);
+            // @ts-ignore
+            await db.import(uint8Array);
+            resolve(undefined);
+          } catch (error) {
+            reject(error?.message || 'Unknown error!');
+          }
+        };
+
+        reader.onerror = () => {
+          reject('Error reading the file!');
+        };
+
+        reader.readAsArrayBuffer(file);
+      };
+
+      input.click();
+    });
+  } catch (err) {
+    logger.error('Failed to backup', err);
+  }
+};
