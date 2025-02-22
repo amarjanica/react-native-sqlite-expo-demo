@@ -48,7 +48,7 @@ or [watch my YT tutorial](https://youtu.be/wUvtS8CWhMs).
 In my previous tutorials I already made SQLite work on the web with sql.js.
 I also showed you how to use AsyncStorage and IndexedDB on the web.
 But I didn't show you how to make SQLite persistable between sessions with the help of IndexedDB.
-Read more about it in [making sqlite work on the web]([https://www.amarjanica.com/submit-expo-ios-app-to-apple-appstore/](https://www.amarjanica.com/making-sqlite-work-on-the-web-with-sql-js-and-indexeddb-2/))
+Read more about it in [making sqlite work on the web](https://www.amarjanica.com/making-sqlite-work-on-the-web-with-sql-js-and-indexeddb-2/)
 or [watch my YT tutorial](https://youtu.be/mUq0yUTJQ6Y).  
 
 ## 8. Import and export SQLite web and native
