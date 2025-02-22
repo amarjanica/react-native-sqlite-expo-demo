@@ -13,6 +13,6 @@ export interface TaskClient {
  */
 export interface OpsClient {
   clear(): Promise<void>;
-  backup(): Promise<void>;
+  backup(backupName: string): Promise<void>;
   restore(): Promise<void>;
 }

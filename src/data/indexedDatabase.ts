@@ -17,6 +17,9 @@ export async function loadFromIndexedDB(dbName: string): Promise<Uint8Array | nu
 }
 export async function saveToIndexedDB(db: Database, dbName: string) {
   const dbData = db.export();
+  await saveToIndexedDBBA(dbData, dbName);
+}
+export async function saveToIndexedDBBA(dbData: Uint8Array, dbName: string) {
   const idb = await idbPromise;
   await idb.put(STORE_NAME, dbData, dbName);
 }
