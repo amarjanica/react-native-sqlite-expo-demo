@@ -42,12 +42,20 @@ or [watch my YT tutorial](https://youtu.be/sGjJxSBZMTA).
 Updated Release Please with [publish to testflight](.github/workflows/release-please.yml#L52). Added a [separate manual dispatch workflow](.github/workflows/release-ipa.yml) that releases IPA file to TestFlight.
 Read more about it in my blog post on [publishing to testflight from github](https://www.amarjanica.com/submit-expo-ios-app-to-apple-appstore/)
 or [watch my YT tutorial](https://youtu.be/wUvtS8CWhMs).  
-[Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/commit/7ac72eb7904448aac7b6e56982e833dee38e1f89)
+[Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/7ac72eb7904448aac7b6e56982e833dee38e1f89)
 
 ## 7. Making SQLite work on the web with sql.js and indexeddb
 In my previous tutorials I already made SQLite work on the web with sql.js.
 I also showed you how to use AsyncStorage and IndexedDB on the web.
 But I didn't show you how to make SQLite persistable between sessions with the help of IndexedDB.
+Read more about it in [making sqlite work on the web]([https://www.amarjanica.com/submit-expo-ios-app-to-apple-appstore/](https://www.amarjanica.com/making-sqlite-work-on-the-web-with-sql-js-and-indexeddb-2/))
+or [watch my YT tutorial](https://youtu.be/mUq0yUTJQ6Y).  
+
+## 8. Import and export SQLite web and native
+Added import and export database to native and web part.  
+Read more about it in [how to import & export sqlite](https://www.amarjanica.com/import-and-export-sqlite-database-in-expo-native-and-web/).
+or [watch my YT tutorial](https://youtu.be/56VQxU_kgwE).  
+[Codebase](https://github.com/amarjanica/react-native-sqlite-expo-demo/tree/079f354ad03012e173a708efacc55e9888564f80)
 
 
 # App Screenshot
