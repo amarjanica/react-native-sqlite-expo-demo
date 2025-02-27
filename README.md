@@ -1,7 +1,16 @@
 # React Native Expo Demo
 
-React Native Expo app showcasing SQLite integration, database migrations, and web support with AsyncStorage and IndexedDB. 
-Includes integration tests and a multi-platform demo (Android & web).
+A React Native Expo app showcasing:
+- SQLite integration
+- Database migrations
+- Web support with SQL.js and IndexedDB
+- Integration tests
+- Database import and export
+- Multi-platform demo (Android & Web)
+
+This app is a companion to my blog and YouTube tutorials. Each chapter follows a lecture, and I update this README.md as I release new content.
+If you have [suggestions](https://github.com/amarjanica/react-native-sqlite-expo-demo/discussions), let me know.
+
 
 # Chapters
 ## 1. Database migrations and integration testing
